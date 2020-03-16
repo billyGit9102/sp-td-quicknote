@@ -49,12 +49,10 @@ const getContent=(t)=>{
 
     db.get("SELECT content FROM note_content WHERE note_id=$id ORDER BY uid DESC ",{$id:1}, (err,row)=>{
       console.log("server js 2 ");
-      
       result=row['content'];
-
     });
     
-  console.log("server result js");
+    console.log("server result js");
     console.log(result);
     //stmt.finalize();
   });  
