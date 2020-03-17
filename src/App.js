@@ -11,7 +11,8 @@ class App extends Component {
   x;
   server;
   state={
-    content:"abcsw1"
+    content:"abcsw1",
+    note:""
   }
   content;
   textChange=(v)=>{
@@ -29,7 +30,7 @@ class App extends Component {
 
   }
   componentDidMount() {
-
+    console.log("componentDidMount")
     ipcRenderer.on('recieveContent', function(e, data){
       console.log("recieveContent")
       console.log(data)
@@ -46,7 +47,7 @@ class App extends Component {
   render() {
     this.getContent()
     return (
-      <Layout change={this.textChange} click={this.addToDB} content={this.state.content}/>
+      <Layout change={this.textChange} click={this.addToDB} content={this.state.content} note={this.state.note}/>
     );
   }
 }
