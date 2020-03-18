@@ -24,12 +24,13 @@ class App extends Component {
     ipcRenderer.send('item:add', this.x);
     
   }
-  getContent=()=>{    
+  getAllNoteContent=()=>{    
     ipcRenderer.send('getContent', this.x);
     console.log(" getContent=()=>{    ")
 
   }
   componentDidMount() {
+    this.getAllNoteContent()
     console.log("componentDidMount")
     ipcRenderer.on('recieveContent', function(e, data){
       console.log("recieveContent")
@@ -45,7 +46,6 @@ class App extends Component {
 
   }
   render() {
-    this.getContent()
     return (
       <Layout change={this.textChange} click={this.addToDB} content={this.state.content} note={this.state.note}/>
     );
