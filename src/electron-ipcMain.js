@@ -12,14 +12,14 @@ ipcMain.on('item:add', function(e, item){
     //addWindow = null;
 });
 
-ipcMain.on('getContent', function(e, item){
+ipcMain.on('note:getAllNotes', function(e){
     //mainWindow.webContents.send('item:add', item);
     //addWindow.close();
 
-    console.log("ipcMain"+item);
-    let id=1
-    const content=db.getContent(id)
+    console.log("ipcMain js - note:getAllNotes");
+    const content=db.getAllNotes()
     // require('./sqlite3/server.js')
     // Still have a reference to addWindow in memory. Need to reclaim memory (Grabage collection)
     //addWindow = null;
 });
+

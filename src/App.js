@@ -25,8 +25,8 @@ class App extends Component {
     
   }
   getAllNoteContent=()=>{    
-    ipcRenderer.send('getContent', this.x);
-    console.log(" getContent=()=>{    ")
+    ipcRenderer.send('note:getAllNotes');
+    console.log('app js note:getAllNotes');
 
   }
   componentDidMount() {
