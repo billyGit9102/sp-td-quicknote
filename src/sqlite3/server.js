@@ -1,5 +1,24 @@
+/* ---------------------------------------------------- *
+*  event setting
+* ----------------------------------------------------- */
+//require events module
+const EventEmitter = require('events');
+//prepare extended class
+class MyEmitter extends EventEmitter {}
+//create instance
+const dbControl = new MyEmitter();
+
+
+/* ---------------------------------------------------- *
+*  sqlite setting
+* ----------------------------------------------------- */
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./app-data/td-quicknote.db');
+
+
+
+
+
 
 // 这段代码用来测试 SQLite
 console.log("db"+db);
@@ -57,17 +76,62 @@ const getContent=(t)=>{
     //stmt.finalize();
   });  
 
-  db.close();
+ 
 }
 
+const getAllNotes=()=>{
+  let result={};
+  db.serialize(function() {
+    db.each("SELECT uid, name FROM note", function(err, row) {
+        
+      console.log("server js getAllNotes");
 
-exports.insert=insert;
-exports.select="";
-exports.update="";
-exports.delete="";
+      const uid=row['uid'];
+      result[uid]={};
+      result[uid].name=row['name'];
 
-exports.getContent =getContent;
+      db.get("SELECT content FROM note_content WHERE note_id=$id ORDER BY uid DESC ",{$id:uid}, (err,row)=>{
+        console.log("server js getAllNotes content result");
+        result[uid].content=row['content']
+        console.log(result);
 
+        dbControl.emit('note:getAllNotes:done',result); 
+      });
+
+      
+    });
+
+    // db.get("SELECT uid, name FROM note", (err,row)=>{
+    //   console.log("server js getAllNotes");
+
+    //   const uid=row['uid'];
+    //   result[uid]={};
+    //   result[uid].name=row['name'];
+      
+    // });
+    
+    // db.get("SELECT content FROM note_content WHERE note_id=$id ORDER BY uid DESC ",{$id:1}, (err,row)=>{
+    //   console.log("server js 2 ");
+    //   result[uid].content=row['content']
+    // });
+    console.log("result"+result);
+
+    console.log(result);
+  })
+  
+ 
+
+}
+// exports.insert=insert;
+// exports.select="";
+// exports.update="";
+// exports.delete="";
+
+// exports.getContent =getContent;
+// exports.getAllNotes=getAllNotes;
+
+dbControl.getAllNotes=getAllNotes;
+module.exports=dbControl;
 
 // // 这段代码用来测试 server 创建是否成功
 // app.get('/test', function(req, res) {

@@ -11,8 +11,7 @@ class App extends Component {
   x;
   server;
   state={
-    content:"abcsw1",
-    note:""
+    allNoteContents:""
   }
   content;
   textChange=(v)=>{
@@ -43,11 +42,10 @@ class App extends Component {
       // li.appendChild(itemText);
       // ul.appendChild(li);
     });
-
   }
   render() {
     return (
-      <Layout change={this.textChange} click={this.addToDB} content={this.state.content} note={this.state.note}/>
+      <Layout change={this.textChange} click={this.addToDB} notes={this.state.allNoteContents}/>
     );
   }
 }
