@@ -1,4 +1,4 @@
-require('./electron-ipcMain');
+const ipcMainControl=require('./electron-ipcMain');
 
 const electron = require('electron');
 
@@ -26,9 +26,12 @@ function createWindow() {
             protocol: 'file:',
             slashes: true
         });
+        
+    ipcMainControl.setMainWindow(mainWindow);
     mainWindow.loadURL(startUrl);
     // Open the DevTools.
     mainWindow.webContents.openDevTools();   
+    
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
