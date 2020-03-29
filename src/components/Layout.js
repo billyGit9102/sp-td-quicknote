@@ -7,16 +7,30 @@ import TinyEditorComponent from './TinyEditorComponent';
 
 const layout = (props) => {
     let notes = null
-    if(props.allNoteContents==""){
+    console.log("props.allNoteContents");
+    console.log(props.allNoteContents);
+
+    if(props.allNoteContents===""){
         notes="loading";
     }else{
-        notes=(
-            <TinyEditorComponent
-            id="myCoolEditor" onEditorChange={content => console.log(content) }
-            width="100%" height="100%" content={props.content}
-            />
-        )
+        const numberOfNotes=Object.keys(props.allNoteContents).length;
+        console.log("numberOfNotes");
+        console.log(numberOfNotes)
+        //notes="loaded"
+        notes=[...Array(numberOfNotes)].map(key=>{
+            return (
+                <TinyEditorComponent
+                id="myCoolEditor" onEditorChange={content => console.log(content) }
+                width="100%" height="100%" content={props.allNoteContents[key]} key={key}
+                />
+            )
+        })
+        
+
+        
+       
     }
+
    return (
     <Aux>
         {notes}
