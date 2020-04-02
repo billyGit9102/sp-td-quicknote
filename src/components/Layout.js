@@ -14,14 +14,25 @@ const layout = (props) => {
         notes="loading";
     }else{
         const numberOfNotes=Object.keys(props.allNoteContents).length;
-        console.log("numberOfNotes");
-        console.log(numberOfNotes)
-        //notes="loaded"
-        notes=[...Array(numberOfNotes)].map(key=>{
+        let noteTitleArray=[];
+        let noteContentArray=[];
+        
+        for(var key in props.allNoteContents) {
+            console.log("props.allNoteContents[key].name");
+            console.log(props.allNoteContents[key].content);
+            noteTitleArray.push({id:key,title:props.allNoteContents[key].name});
+            noteContentArray.push({id:key,content:props.allNoteContents[key].content});
+        }
+
+        console.log("final array");
+        console.log(noteTitleArray)
+        console.log(noteContentArray)
+        
+        notes=noteContentArray.map(note=>{
             return (
                 <TinyEditorComponent
-                id="myCoolEditor" onEditorChange={content => console.log(content) }
-                width="100%" height="100%" content={props.allNoteContents[key]} key={key}
+                id={"note"+note.id} noteid={note.id} onEditorChange={content => console.log(content) }
+                width="100%" height="100%" content={note.content} key={note.id}
                 />
             )
         })
