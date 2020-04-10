@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 click add item to sqlite13
+=======
+click add item to sqlite
+>>>>>>> 35f90d9259604538961bd530ba2f67c8784a1394
