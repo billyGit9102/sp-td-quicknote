@@ -1,0 +1,61 @@
+
+tinymce.init({
+    selector: '#editor',
+    menubar: false,
+    toolbar: 'bold italic underline | alignmentsplit | bullist numlist outdent indent',
+  
+    setup: function (editor) {
+      editor.on('init', function() {
+        this.getDoc().body.style.fontSize = '16px';
+        this.getDoc().body.style.fontFamily = 'Georgia';
+      });
+      editor.addButton('alignmentsplit', {
+        type: 'splitbutton',
+        text: '',
+        icon: 'alignleft',
+        onclick: function(e) {
+          tinyMCE.execCommand(this.value);
+        },
+        menu: [{
+            icon: 'alignleft',
+            text: 'Align Left',
+            onclick: function() {
+              tinyMCE.execCommand('JustifyLeft');
+              this.parent().parent().icon('alignleft');
+              this.parent().parent().value = 'JustifyLeft'
+            }
+          }, {
+            icon: 'alignright',
+            text: 'Align Right',
+            onclick: function() {
+            tinyMCE.execCommand('JustifyRight');
+            this.parent().parent().icon('alignright');
+            this.parent().parent().value = 'JustifyRight';
+            }
+          }, {
+            icon: 'aligncenter',
+            text: 'Align Center',
+            onclick: function() {
+            tinyMCE.execCommand('JustifyCenter');
+            this.parent().parent().icon('aligncenter');
+            this.parent().parent().value = 'JustifyCenter';
+            }
+          }, {
+            icon: 'alignjustify',
+            text: 'Justify',
+            onclick: function() {
+            tinyMCE.execCommand('JustifyFull');
+            this.parent().parent().icon('alignjustify');
+            this.parent().parent().value = 'JustifyFull';
+            }
+          }
+        ],
+        onPostRender: function() {
+          // Select the first item by default
+          this.value ='JustifyLeft';
+        }
+      });
+    }
+  });
+  
+  
