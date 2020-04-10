@@ -29,9 +29,13 @@ class TinyEditorComponent extends Component {
         fontsize_formats: "8px 10px 12px 14px 18px 24px 36px",  
         setup: editor => {
                 this.setState({ editor });
-                editor.on('keyup change', () => {
+                editor.on('keyup', () => {
+                    const orig_element = editor.getElement();
+                    const id = orig_element.getAttribute('data-note-id');
                     const content = editor.getContent();
-                    this.props.onEditorChange(content);
+                    this.props.onEditorChange(id,content);                    
+                    // console.log("editor")
+                    // console.log(editor)
                 });
                 editor.on('init', () => {
                     //editor.execCommand("fontSize", false, "10px");
@@ -65,7 +69,6 @@ class TinyEditorComponent extends Component {
             />            
         );
     }
-
 
 }
 

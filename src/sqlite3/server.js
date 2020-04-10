@@ -58,6 +58,12 @@ const insert=(t)=>{
   // db.close();
 }
 
+const insertNoteCotent=(id,content)=>{
+  console.log("server js insertNoteCotent");
+  db.serialize(function() {
+    db.run("INSERT INTO note_content(note_id,content) VALUES($id,$content)",{$id:id,$content:content});
+  });
+}
 //db.close();
 const getContent=(t)=>{
   let result;
@@ -129,8 +135,8 @@ const getAllNotes=()=>{
 
 // exports.getContent =getContent;
 // exports.getAllNotes=getAllNotes;
-
 dbControl.getAllNotes=getAllNotes;
+dbControl.insertNoteCotent=insertNoteCotent;
 module.exports=dbControl;
 
 // // 这段代码用来测试 server 创建是否成功

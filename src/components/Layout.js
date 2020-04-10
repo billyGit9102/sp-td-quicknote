@@ -31,15 +31,12 @@ const layout = (props) => {
         notes=noteContentArray.map(note=>{
             return (
                 <TinyEditorComponent
-                id={"note"+note.id} noteid={note.id} onEditorChange={content => console.log(content) }
+                id={"note"+note.id} noteid={note.id} onEditorChange={props.onEditorChange}
                 width="100%" height="100%" content={note.content} key={note.id}
                 />
             )
         })
-        
-
-        
-       
+               
     }
 
    return (
